@@ -8,7 +8,7 @@ import edu.unibw.se.hp.simulation.Scenario;
 public class SupermarketScenario implements Scenario {
     private final int minItemNumber;
     private final int maxItemNumber;
-    private Checkout checkout;
+    private final Checkout checkout;
 
     public SupermarketScenario(int itemsPerSecond, int minItemNumber, int maxItemNumber) {
         this.minItemNumber = minItemNumber;

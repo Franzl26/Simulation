@@ -7,7 +7,7 @@ import edu.unibw.se.hp.simulation.Scenario;
 
 public class PrinterScenario implements Scenario {
     private final int maxPages;
-    private Printer printer;
+    private final Printer printer;
 
     public PrinterScenario(double pagesPerSecond, int maxPages) {
         printer = new Printer(pagesPerSecond);
@@ -45,8 +45,9 @@ public class PrinterScenario implements Scenario {
             return this;
         }
 
-        public PrinterScenario build() throws BadConfigurationException{
-            if (maxPages <= 0 || pagesPerSecond <= 0) throw new BadConfigurationException("Some values are not initialised!");
+        public PrinterScenario build() throws BadConfigurationException {
+            if (maxPages <= 0 || pagesPerSecond <= 0)
+                throw new BadConfigurationException("Some values are not initialised!");
             return new PrinterScenario(this);
         }
     }

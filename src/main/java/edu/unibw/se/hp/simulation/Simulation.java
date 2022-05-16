@@ -14,7 +14,7 @@ public class Simulation {
         int countFinishedOrders = 0;
         Resource resource = scenario.getResource();
         while (countCreatedOrders < numberOfOrdersToCreate || !resource.isFree() || !queue.isEmpty()) {
-            long currentTime = (timeNextOrderArrives <= timeNextOrderLeaveResource) ? timeNextOrderArrives : timeNextOrderLeaveResource;
+            long currentTime = Math.min(timeNextOrderArrives, timeNextOrderLeaveResource);
             if (currentTime == timeNextOrderArrives) {
                 Order order = scenario.createOrder();
                 order.setArrivalTime(currentTime);

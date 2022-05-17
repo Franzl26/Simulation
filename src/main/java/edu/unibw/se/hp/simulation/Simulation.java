@@ -5,7 +5,7 @@ import edu.unibw.se.hp.queue.Queue;
 import java.text.DecimalFormat;
 
 public class Simulation {
-    public static String runSimulation(Scenario scenario, Queue queue, int numberOfOrdersToCreate, long meanEnterInterval) {
+    public static String runSimulation(Scenario scenario, Queue<Order> queue, int numberOfOrdersToCreate, long meanEnterInterval) {
         long timeNextOrderArrives = -(long) (Math.log(Math.random()) * meanEnterInterval);
         long timeNextOrderLeaveResource = Long.MAX_VALUE;
         double totalDurationInScenario = 0;
@@ -32,7 +32,7 @@ public class Simulation {
                 timeNextOrderLeaveResource = Long.MAX_VALUE;
             }
             if (resource.isFree() && !queue.isEmpty()) {
-                Order order = (Order) queue.dequeue();
+                Order order = queue.dequeue();
                 order.setEnterResourceTime(currentTime);
                 timeNextOrderLeaveResource = currentTime + resource.setCurrentOrder(order);
             }

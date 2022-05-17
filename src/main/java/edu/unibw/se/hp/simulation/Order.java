@@ -24,4 +24,8 @@ abstract public class Order {
     public void setLeaveResourceTime(long time) {
         leaveResourceTime = time;
     }
+
+    public long getArrivalTime() {
+        return arrivalTime;
+    }
 }

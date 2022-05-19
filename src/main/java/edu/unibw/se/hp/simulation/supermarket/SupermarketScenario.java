@@ -1,11 +1,10 @@
 package edu.unibw.se.hp.simulation.supermarket;
 
 import edu.unibw.se.hp.simulation.BadConfigurationException;
-import edu.unibw.se.hp.simulation.Order;
 import edu.unibw.se.hp.simulation.Resource;
 import edu.unibw.se.hp.simulation.Scenario;
 
-public class SupermarketScenario implements Scenario {
+public class SupermarketScenario implements Scenario<Customer> {
     private final int minItemNumber;
     private final int maxItemNumber;
     private final Checkout checkout;
@@ -23,12 +22,13 @@ public class SupermarketScenario implements Scenario {
     }
 
     @Override
-    public Order createOrder() {
+    public Customer createOrder() {
         return new Customer((int) (Math.random() * (maxItemNumber - minItemNumber) + minItemNumber));
     }
 
     @Override
-    public Resource getResource() {
+    // public Resource<Customer> getResource() {
+    public Checkout getResource() {
         return checkout;
     }
 

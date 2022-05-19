@@ -1,11 +1,9 @@
 package edu.unibw.se.hp.simulation;
 
-import edu.unibw.se.hp.simulation.supermarket.Customer;
+public interface Resource<E extends Order> {
+    long setCurrentOrder(E order);
 
-public interface Resource {
-    long setCurrentOrder(Order order);
-
-    Order removeCurrentOrder();
+    E removeCurrentOrder();
 
     boolean isFree();
 }

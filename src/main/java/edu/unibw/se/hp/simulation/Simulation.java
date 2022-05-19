@@ -5,18 +5,18 @@ import edu.unibw.se.hp.queue.Queue;
 import java.text.DecimalFormat;
 
 public class Simulation {
-    public static String runSimulation(Scenario scenario, Queue<Order> queue, int numberOfOrdersToCreate, long meanEnterInterval) {
+    public static <O extends Order> String runSimulation(Scenario<O> scenario, Queue<O> queue, int numberOfOrdersToCreate, long meanEnterInterval) {
         long timeNextOrderArrives = -(long) (Math.log(Math.random()) * meanEnterInterval);
         long timeNextOrderLeaveResource = Long.MAX_VALUE;
         double totalDurationInScenario = 0;
         double totalDurationInResource = 0;
         int countCreatedOrders = 0;
         int countFinishedOrders = 0;
-        Resource resource = scenario.getResource();
+        Resource<O> resource = scenario.getResource();
         while (countCreatedOrders < numberOfOrdersToCreate || !resource.isFree() || !queue.isEmpty()) {
             long currentTime = Math.min(timeNextOrderArrives, timeNextOrderLeaveResource);
             if (currentTime == timeNextOrderArrives) {
-                Order order = scenario.createOrder();
+                O order = scenario.createOrder();
                 order.setArrivalTime(currentTime);
                 queue.enqueue(order);
                 countCreatedOrders++;
@@ -32,7 +32,7 @@ public class Simulation {
                 timeNextOrderLeaveResource = Long.MAX_VALUE;
             }
             if (resource.isFree() && !queue.isEmpty()) {
-                Order order = queue.dequeue();
+                O order = queue.dequeue();
                 order.setEnterResourceTime(currentTime);
                 timeNextOrderLeaveResource = currentTime + resource.setCurrentOrder(order);
             }
@@ -40,6 +40,6 @@ public class Simulation {
         DecimalFormat myFormatter = new DecimalFormat("00000.00");
         return "Verweildauer: " + myFormatter.format(totalDurationInScenario / countFinishedOrders)
                 + " - Wartedauer: " + myFormatter.format((totalDurationInScenario - totalDurationInResource) / countFinishedOrders)
-                + " - Bearbeitungdauer: " + myFormatter.format(totalDurationInResource / countFinishedOrders);
+                + " - Bearbeitungsdauer: " + myFormatter.format(totalDurationInResource / countFinishedOrders);
     }
 }

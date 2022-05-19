@@ -1,11 +1,9 @@
 package edu.unibw.se.hp.simulation.printer;
 
 import edu.unibw.se.hp.simulation.BadConfigurationException;
-import edu.unibw.se.hp.simulation.Order;
-import edu.unibw.se.hp.simulation.Resource;
 import edu.unibw.se.hp.simulation.Scenario;
 
-public class PrinterScenario implements Scenario {
+public class PrinterScenario implements Scenario<PrintJob> {
     private final int maxPages;
     private final Printer printer;
 
@@ -20,12 +18,13 @@ public class PrinterScenario implements Scenario {
     }
 
     @Override
-    public Order createOrder() {
+    public PrintJob createOrder() {
         return new PrintJob((int) (Math.random() * maxPages + 1));
     }
 
     @Override
-    public Resource getResource() {
+    // public Resource<PrintJob> getResource() {
+    public Printer getResource() {
         return printer;
     }
 

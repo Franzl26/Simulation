@@ -3,7 +3,7 @@ package edu.unibw.se.hp.simulation.printer;
 import edu.unibw.se.hp.simulation.Order;
 import edu.unibw.se.hp.simulation.Resource;
 
-public class Printer implements Resource {
+public class Printer implements Resource<PrintJob> {
     private final double pagesPerSecond;
     private PrintJob currentPrinterJob = null;
 
@@ -12,13 +12,13 @@ public class Printer implements Resource {
     }
 
     @Override
-    public long setCurrentOrder(Order order) {
-        currentPrinterJob = (PrintJob) order;
+    public long setCurrentOrder(PrintJob order) {
+        currentPrinterJob = order;
         return (long) (currentPrinterJob.pages / pagesPerSecond);
     }
 
     @Override
-    public Order removeCurrentOrder() {
+    public PrintJob removeCurrentOrder() {
         PrintJob temp = currentPrinterJob;
         currentPrinterJob = null;
         return temp;
